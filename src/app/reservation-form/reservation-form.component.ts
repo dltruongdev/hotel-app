@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ReservationService } from '../reservation/reservation.service';
 import { Reservation } from '../models/reservation';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reservation-form',
@@ -12,7 +13,11 @@ export class ReservationFormComponent implements OnInit {
 
   reservationForm: FormGroup = new FormGroup({});
   
-  constructor(private formBuilder: FormBuilder, private reservationService: ReservationService) {}
+  constructor(
+    private formBuilder: FormBuilder, 
+    private reservationService: ReservationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Initialize the form with default values
@@ -49,6 +54,9 @@ export class ReservationFormComponent implements OnInit {
       
       // Reset back to the clean, default state
       this.reservationForm.reset(this.getFormDefaults());
+
+      // Redirect to list page
+      this.router.navigate(['/list']);
     }
   }
 }
